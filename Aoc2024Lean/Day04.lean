@@ -6,29 +6,6 @@ open Utils List
 
 namespace Day04
 
-/-- Computes all the subdiagonals of a grid -/
-def diags (input : Grid α) : List <| List α :=
-  let nrows := length input
-  let ncols := length (head! input)
-  (rangei (-ncols + 1) (nrows + ncols - 1))
-  |> map (fun ci =>
-      (rangei 0 ncols)
-      |> filterMap (fun ri =>
-        do let r ← geti? input ri
-           geti? r (ci + ri)))
-
-/-- Returns the main diagonal of a grid -/
-def diag (input : Grid α) : List α :=
-  let ncols := length (head! input)
-  (range ncols)
-  |> filterMap (λ i =>
-    do let r ← get? input i
-       get? r i)
-
-def sample := [["00", "01", "02"], ["10", "11", "12"], ["20", "21", "22"]]
-#eval diag sample
-#eval diags sample
-
 def count1 (grid : List <| List Char) : Nat :=
   let strlines := gridToStrings grid
   let m := String.Matcher.ofString "XMAS"
@@ -75,19 +52,6 @@ def x_mas (pat : String) (block : Grid Char) :=
   let p4 := (String.mk <| d4) = pat
 
   (p1 || p2) && (p3 || p4)
-
-def slices (sx : Nat) (sy : Nat) (input : Grid α) : List <| Grid α :=
-  let nrows := length input
-  let ncols := length (head! input)
-  product (range <| nrows - sx + 1) (range <| ncols - sy + 1)
-  |> map (fun (x, y) =>
-    range sx
-    |> map (fun i =>
-      range sy
-      |> filterMap (fun j =>
-        do
-          let r ← get? input (x + i)
-          get? r (y + j))))
 
 def solve2 (input : String) :=
   charGrid input

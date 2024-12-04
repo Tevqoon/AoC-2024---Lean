@@ -1,6 +1,7 @@
 import Lake
 open Lake DSL
 
+require Parser from git "https://github.com/fgdorais/lean4-parser" @ "main"
 require "leanprover-community" / "batteries" @ git "main"
 
 package "aoc-2024-lean" where
@@ -17,5 +18,3 @@ lean_lib «Aoc2024Lean» where
 lean_exe «aoc» where
   root := `Main
   moreLeanArgs := #["-R", "Aoc=."]
-
-
