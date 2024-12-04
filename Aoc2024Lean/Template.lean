@@ -13,7 +13,6 @@ def solve2 (input : String) :=
 
 def run : IO Unit := do
   let input ← readInput 0
-  let left_ids ←
   IO.println <| solve1 input
   IO.println <| solve2 input
 

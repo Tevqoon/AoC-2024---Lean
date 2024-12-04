@@ -6,7 +6,7 @@ open Utils List
 namespace Day02
 
 def safe (report : List Int) : Bool :=
-  let diffs := zipWith (fun x y => x - y) report (tail! report)
+  let diffs := zipWith (· - ·) report (tail! report)
   all diffs (fun x => 1 ≤ x && x ≤ 3)
   || all diffs (fun x => (-3 : Int) ≤ x && x ≤ (-1 : Int))
 
@@ -25,7 +25,7 @@ def solve1 (input : String) :=
 #eval solve1 test
 
 def dampener (diffs : List Int) : List (List Int) :=
-  map (fun i => eraseIdx diffs i) (range <| length diffs)
+  map (eraseIdx diffs) (range <| length diffs)
 
 def solve2 (input : String) :=
   let report := map parseInts (lines input)
@@ -36,7 +36,6 @@ def solve2 (input : String) :=
 
 def run : IO Unit := do
   let input ← readInput 2
-  let left_ids ←
   IO.println <| solve1 input
   IO.println <| solve2 input
 

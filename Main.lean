@@ -1,5 +1,7 @@
 import Aoc2024Lean.Day01
 import Aoc2024Lean.Day02
+import Aoc2024Lean.Day03
+import Aoc2024Lean.Day04
 
 def printUsage : IO UInt32 := do
   IO.println "Usage: aoc-2024-lean [day_number]"
@@ -12,6 +14,10 @@ def runDay (day : Nat) : IO UInt32 := do
   | 1 => do Day01.run
             pure 0
   | 2 => do Day02.run
+            pure 0
+  | 3 => do Day03.run
+            pure 0
+  | 4 => do Day04.run
             pure 0
   | _ => do IO.println "Invalid day number!"
             pure 1
