@@ -48,6 +48,16 @@ def geti? (input : List α) (index : Int) : Option α :=
   else
     List.get? input (Int.toNat index)
 
+/-- Attempts to extract the first two elements of a list into a pair -/
+def toPair? (l : List α) : Option (α × α) :=
+  do let a ← l[0]?
+     let b ← l[1]?
+     (a, b)
+
+/-- Returns the middle element of a list, if the list is nonempty. -/
+def middle (l : List α) : Option α :=
+    get? l (length l / 2)
+
 /-- An integer range function akin to Python's range -/
 def rangei : (start : Int) → (len : Nat) → (step : Int := 1) → List Int
   | _, 0, _ => []
@@ -63,9 +73,8 @@ def slices (sx : Nat) (sy : Nat) (input : Grid α) : List <| Grid α :=
     |> map (fun i =>
       range sy
       |> filterMap (fun j =>
-        do
-          let r ← get? input (x + i)
-          get? r (y + j))))
+        do let r ← get? input (x + i)
+           get? r (y + j))))
 
 /-- Returns the main diagonal of a grid -/
 def diag (input : Grid α) : List α :=
